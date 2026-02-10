@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cenová ponuka - {{CLIENT_COMPANY}}</title>
+  <style>
+    /* Font Faces */
+    @font-face {
+      font-family: 'Conforto';
+      src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf') format('opentype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Conforto';
+      src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Medium.otf') format('opentype');
+      font-weight: 500;
+    }
+    @font-face {
+      font-family: 'General Sans';
+      src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Regular.otf') format('opentype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'General Sans';
+      src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Medium.otf') format('opentype');
+      font-weight: 500;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 800;
+    }
+
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'General Sans', sans-serif;
+      background-color: #EFEEE6;
+      color: #514A53;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Page Container */
+    .page-container {
+      width: 210mm;
+      margin: 0 auto;
+      padding: 20mm;
+      background-color: #EFEEE6;
+    }
+
+    /* Page */
+    .page {
+      width: 100%;
+      min-height: 257mm; /* 297mm - 40mm padding */
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 20mm;
+      page-break-after: always;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* Cover Page */
+    .page-cover {
+      background-color: #221924;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Typography */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #A09BA3;
+    }
+
+    h1 {
+      font-family: 'Conforto', serif;
+      font-size: 48px;
+      line-height: 56px;
+      font-weight: 400;
+      color: #221924;
+    }
+
+    h2 {
+      font-family: 'Conforto', serif;
+      font-size: 34px;
+      line-height: 40px;
+      font-weight: 400;
+      color: #221924;
+    }
+
+    h3 {
+      font-family: 'Conforto', serif;
+      font-size: 28px;
+      line-height: 34px;
+      font-weight: 400;
+      color: #221924;
+    }
+
+    h4 {
+      font-family: 'Conforto', serif;
+      font-size: 21px;
+      line-height: 28px;
+      font-weight: 500;
+      color: #221924;
+    }
+
+    .body-large {
+      font-size: 17px;
+      line-height: 25px;
+    }
+
+    .body-medium {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .body-small {
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    .label {
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 500;
+      color: #221924;
+    }
+
+    .caption {
+      font-size: 11px;
+      line-height: 16px;
+      color: #A09BA3;
+    }
+
+    /* Logo */
+    .logo {
+      width: 66px;
+      height: 43px;
+    }
+
+    .logo-white {
+      color: #FFFFFF;
+    }
+
+    .logo-dark {
+      color: #221924;
+    }
+
+    /* Components */
+    .card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .card-sand {
+      background: #F4F3ED;
+    }
+
+    .badge {
+      display: inline-flex;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: #DCB1E6;
+      color: #221924;
+    }
+
+    /* Price Table */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .price-table th,
+    .price-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #D1D1D6;
+    }
+
+    .price-table th {
+      font-family: 'General Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #A09BA3;
+      background-color: #F4F3ED;
+    }
+
+    .price-table td {
+      font-size: 15px;
+      color: #221924;
+    }
+
+    .price-table .price {
+      text-align: right;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .price-table .total-row {
+      background-color: #221924;
+      color: #FFFFFF;
+    }
+
+    .price-table .total-row td {
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+
+    /* Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Team Card */
+    .team-card {
+      text-align: center;
+    }
+
+    .team-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+    }
+
+    /* Spacing */
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mb-8 { margin-bottom: 32px; }
+    .mt-auto { margin-top: auto; }
+
+    /* Print */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background-color: #EFEEE6;
+      }
+
+      .page-container {
+        padding: 0;
+      }
+
+      .page {
+        margin: 20mm;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- Page 1: Cover -->
+    <div class="page page-cover">
+      <div>
+        <!-- Logo -->
+        <svg class="logo logo-white" width="66" height="43" viewBox="0 0 66 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.778 36.5728L16.5624 31.2327C18.6601 32.9239 20.2813 33.1249 21.6317 33.1249C25.4161 33.1249 29.8779 28.1911 31.3681 26.0935L32.0455 25.1452C34.3441 21.9682 35.2225 19.3986 34.4097 18.4547C33.2603 17.1699 21.3607 17.3709 8.65267 35.0827L8.5172 35.2837L7.09694 37.3114L5.34019 39.9465L0 36.5685L24.7431 0L30.0833 3.37804L20.1459 18.0483C25.2151 13.9929 38.1941 9.32566 41.5765 13.5864C44.0762 16.6979 41.3056 23.1874 37.5211 28.3222L36.7782 29.3361C33.6012 33.6624 27.4482 40.4884 21.6361 40.4884C17.3753 40.4884 14.8756 38.2597 12.7824 36.5685L12.778 36.5728Z" fill="currentColor"/>
+          <path d="M65.1704 5.94273L47.9306 31.2933L42.5904 27.9153L59.8302 2.5647L65.1704 5.94273ZM45.6319 34.6757L42.0485 39.9504L36.7083 36.5723L40.2917 31.2977L45.6319 34.6757Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="color: #DCB1E6;">Diagnostika</span>
+        <h1 style="color: #FFFFFF; margin-top: 16px;">Cenová ponuka</h1>
+        <h2 style="color: #DCB1E6; margin-top: 8px;">{{CLIENT_COMPANY}}</h2>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <p class="label" style="color: #A09BA3;">Pripravené pre</p>
+          <p class="body-large" style="color: #FFFFFF;">{{CLIENT_NAME}}</p>
+        </div>
+        <div style="text-align: right;">
+          <p class="label" style="color: #A09BA3;">Dátum</p>
+          <p class="body-large" style="color: #FFFFFF;">{{DATE}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 2: About Service -->
+    <div class="page">
+      <span class="eyebrow mb-6" style="display: block;">O službe</span>
+      <h2 class="mb-6">Diagnostika</h2>
+      <p class="body-large mb-8">
+        Diagnostika je analytická služba, ktorá vám pomôže pochopiť súčasný stav
+        vášho marketingu a identifikovať oblasti pre zlepšenie.
+      </p>
+
+      <h4 class="mb-4">Čo zahŕňa</h4>
+      <div class="grid-3 mb-8">
+        <div class="card card-sand">
+          <p class="label mb-4">Audit značky</p>
+          <p class="body-small">Analýza identity, pozicioningu a komunikácie.</p>
+        </div>
+        <div class="card card-sand">
+          <p class="label mb-4">Audit kanálov</p>
+          <p class="body-small">Zhodnotenie výkonnosti digitálnych kanálov.</p>
+        </div>
+        <div class="card card-sand">
+          <p class="label mb-4">Analýza konkurencie</p>
+          <p class="body-small">Porovnanie s konkurenciou na trhu.</p>
+        </div>
+        <div class="card card-sand">
+          <p class="label mb-4">Analýza cieľovky</p>
+          <p class="body-small">Pochopenie potrieb a správania zákazníkov.</p>
+        </div>
+        <div class="card card-sand">
+          <p class="label mb-4">Technický audit</p>
+          <p class="body-small">Zhodnotenie technickej infraštruktúry.</p>
+        </div>
+        <div class="card card-sand">
+          <p class="label mb-4">Odporúčania</p>
+          <p class="body-small">Prioritizovaný plán ďalších krokov.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 3: Process & Output -->
+    <div class="page">
+      <div class="grid-2">
+        <div>
+          <span class="eyebrow mb-6" style="display: block;">Proces</span>
+          <h3 class="mb-6">Ako to prebieha</h3>
+
+          <div class="mb-6">
+            <span class="badge mb-4">1. Kick-off</span>
+            <p class="body-medium">Úvodný meeting na pochopenie vašich cieľov a očakávaní.</p>
+          </div>
+
+          <div class="mb-6">
+            <span class="badge mb-4">2. Zber dát</span>
+            <p class="body-medium">Analýza existujúcich materiálov a prístupov.</p>
+          </div>
+
+          <div class="mb-6">
+            <span class="badge mb-4">3. Analýza</span>
+            <p class="body-medium">Hĺbková analýza a identifikácia príležitostí.</p>
+          </div>
+
+          <div>
+            <span class="badge mb-4">4. Prezentácia</span>
+            <p class="body-medium">Prezentácia výsledkov a odporúčaní.</p>
+          </div>
+        </div>
+
+        <div>
+          <span class="eyebrow mb-6" style="display: block;">Výstupy</span>
+          <h3 class="mb-6">Čo dostanete</h3>
+
+          <div class="card card-sand mb-4">
+            <p class="label">✓ Diagnostická správa</p>
+            <p class="body-small" style="color: #A09BA3;">Komplexná analýza súčasného stavu</p>
+          </div>
+
+          <div class="card card-sand mb-4">
+            <p class="label">✓ Prioritizované odporúčania</p>
+            <p class="body-small" style="color: #A09BA3;">Konkrétne kroky zoradené podľa dopadu</p>
+          </div>
+
+          <div class="card card-sand mb-4">
+            <p class="label">✓ Benchmark analýza</p>
+            <p class="body-small" style="color: #A09BA3;">Porovnanie s konkurenciou</p>
+          </div>
+
+          <div class="card card-sand">
+            <p class="label">✓ Roadmapa</p>
+            <p class="body-small" style="color: #A09BA3;">Plán implementácie na 6-12 mesiacov</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 4: Team -->
+    <div class="page">
+      <span class="eyebrow mb-6" style="display: block;">Tím</span>
+      <h2 class="mb-8">Kto bude na projekte</h2>
+
+      <div class="grid-2 mb-8">
+        <div class="team-card">
+          <img src="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fotky/Team/Jakub.jpg" alt="Jakub Hrušovský">
+          <h4>Jakub Hrušovský</h4>
+          <span class="eyebrow">Co-founder & Strategist</span>
+          <p class="body-small" style="margin-top: 8px;">hrusovsky@birne.sk</p>
+        </div>
+        <div class="team-card">
+          <img src="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fotky/Team/Marek.jpg" alt="Marek Šulík">
+          <h4>Marek Šulík</h4>
+          <span class="eyebrow">Co-founder & Strategist</span>
+          <p class="body-small" style="margin-top: 8px;">sulik@birne.sk</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 5: Pricing -->
+    <div class="page">
+      <span class="eyebrow mb-6" style="display: block;">Cenová ponuka</span>
+      <h2 class="mb-8">Investícia</h2>
+
+      <table class="price-table mb-8">
+        <thead>
+          <tr>
+            <th>Položka</th>
+            <th style="text-align: right;">Cena</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ITEMS}}
+          <tr class="total-row">
+            <td><strong>Celkom</strong></td>
+            <td class="price"><strong>{{TOTAL}}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="mb-4">Podmienky spolupráce</h4>
+      <div class="grid-2">
+        <div>
+          <p class="label mb-4">Trvanie projektu</p>
+          <p class="body-medium">{{PROJECT_DURATION}}</p>
+        </div>
+        <div>
+          <p class="label mb-4">Platobné podmienky</p>
+          <p class="body-medium">50% pred začiatkom, 50% po odovzdaní</p>
+        </div>
+      </div>
+
+      <div style="margin-top: auto; padding-top: 48px; border-top: 1px solid #D1D1D6;">
+        <p class="caption">
+          Táto ponuka je platná 30 dní od dátumu vystavenia.
+          Ceny sú uvedené bez DPH. Birne Studio s.r.o. nie je platcom DPH.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/**
+ * Birne Design System - CSS Custom Properties
+ * Auto-generated - DO NOT EDIT
+ */
+
+:root {
+  /* === Brand Colors - Birne Black === */
+  --birne-black-2: 310 1% 97%;
+  --birne-black-5: 310 2% 94%;
+  --birne-black-10: 310 3% 88%;
+  --birne-black-20: 310 4% 80%;
+  --birne-black-40: 310 4% 62%;
+  --birne-black-60: 310 6% 45%;
+  --birne-black-80: 310 10% 28%;
+  --birne-black-100: 310 18% 12%;
+  --birne-black: hsl(var(--birne-black-100));
+
+  /* === Brand Colors - Birne Purple === */
+  --birne-purple-20: 289 54% 96%;
+  --birne-purple-40: 289 54% 93%;
+  --birne-purple-60: 289 54% 90%;
+  --birne-purple-80: 289 54% 85%;
+  --birne-purple-100: 289 54% 80%;
+  --birne-purple: hsl(var(--birne-purple-100));
+
+  /* === Brand Colors - Birne Lemon === */
+  --birne-lemon-20: 61 97% 92%;
+  --birne-lemon-40: 61 97% 87%;
+  --birne-lemon-60: 61 97% 82%;
+  --birne-lemon-80: 61 97% 77%;
+  --birne-lemon-100: 61 97% 72%;
+  --birne-lemon: hsl(var(--birne-lemon-100));
+
+  /* === Brand Colors - Birne Sand === */
+  --birne-sand-20: 60 18% 97%;
+  --birne-sand-40: 60 18% 95%;
+  --birne-sand-60: 60 18% 92%;
+  --birne-sand-80: 60 18% 87%;
+  --birne-sand-100: 60 18% 84%;
+  --birne-sand-120: 60 18% 81%;
+  --birne-sand-140: 60 18% 78%;
+  --birne-sand: hsl(var(--birne-sand-60));
+
+  /* === Text Colors === */
+  --text-heading: #221924;
+  --text-body: #514A53;
+  --text-caption: #A09BA3;
+  --text-muted: #C2BFC3;
+
+  /* === UI Colors === */
+  --background: #FFFFFF;
+  --surface: #FFFFFF;
+  --border: #D1D1D6;
+  --hover: #F5F5F7;
+
+  /* === Typography === */
+  --font-display: 'Conforto', serif;
+  --font-text: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* === Font Sizes === */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 19px;
+  --text-xl: 21px;
+  --text-2xl: 28px;
+  --text-3xl: 34px;
+  --text-4xl: 48px;
+  --text-5xl: 60px;
+
+  /* === Line Heights === */
+  --leading-xs: 16px;
+  --leading-sm: 18px;
+  --leading-base: 22px;
+  --leading-md: 24px;
+  --leading-lg: 26px;
+  --leading-xl: 28px;
+  --leading-2xl: 34px;
+  --leading-3xl: 40px;
+  --leading-4xl: 56px;
+  --leading-5xl: 68px;
+
+  /* === Spacing === */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+
+  /* === Border Radius === */
+  --radius-2xs: 4px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* === Transitions === */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}

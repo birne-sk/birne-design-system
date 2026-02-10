@@ -1,0 +1,80 @@
+{
+  "name": "@birne/design-system",
+  "version": "1.0.0",
+  "description": "Birne Design System - unified tokens, components and styles for all Birne projects",
+  "main": "dist/js/tokens.js",
+  "module": "dist/js/tokens.mjs",
+  "types": "dist/js/tokens.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/js/tokens.mjs",
+      "require": "./dist/js/tokens.js",
+      "types": "./dist/js/tokens.d.ts"
+    },
+    "./css": "./dist/css/variables.css",
+    "./fonts": "./dist/css/fonts.css",
+    "./tailwind": "./dist/tailwind/preset.js",
+    "./inline": "./dist/inline/styles.js",
+    "./components": {
+      "import": "./components/src/index.ts",
+      "types": "./components/src/index.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "components/src",
+    "assets"
+  ],
+  "scripts": {
+    "build": "npm run build:tokens && npm run build:components",
+    "build:tokens": "node scripts/build-tokens.js",
+    "build:components": "tsc -p tsconfig.components.json",
+    "dev": "npm run build:tokens -- --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/birne-sk/birne-design-system.git"
+  },
+  "keywords": [
+    "design-system",
+    "birne",
+    "tokens",
+    "tailwind",
+    "react"
+  ],
+  "author": "Birne Studio s.r.o.",
+  "license": "UNLICENSED",
+  "private": true,
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/react-vite": "^8.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "storybook": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0"
+  }
+}

@@ -45,7 +45,7 @@ const PriceTable = React.forwardRef<HTMLDivElement, PriceTableProps>(
         {/* Header */}
         {title && (
           <div className="px-6 py-4 bg-birne-sand-40 border-b border-border">
-            <h3 className="font-display text-lg font-medium text-text-heading">
+            <h3 className="font-display text-lg font-normal text-text-heading">
               {title}
             </h3>
           </div>
@@ -83,7 +83,7 @@ const PriceTable = React.forwardRef<HTMLDivElement, PriceTableProps>(
             <span className="font-text text-base font-medium text-white">
               {totalLabel}
             </span>
-            <span className="font-display text-xl font-medium text-white">
+            <span className="font-display text-xl font-normal text-white">
               {total} {currency}
             </span>
           </div>

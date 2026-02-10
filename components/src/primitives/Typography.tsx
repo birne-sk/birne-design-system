@@ -10,11 +10,11 @@ const headingVariants = cva("font-display text-text-heading", {
   variants: {
     level: {
       h1: "text-4xl leading-[56px] font-normal tracking-tight",
-      h2: "text-3xl leading-[40px] font-normal",
-      h3: "text-2xl leading-[34px] font-normal",
-      h4: "text-xl leading-[28px] font-medium",
-      h5: "text-lg leading-[26px] font-medium",
-      h6: "text-md leading-[24px] font-medium",
+      h2: "text-3xl leading-[42px] font-normal",
+      h3: "text-2xl leading-[36px] font-normal",
+      h4: "text-[24px] leading-[32px] font-normal",
+      h5: "text-xl leading-[28px] font-normal",
+      h6: "text-lg leading-[26px] font-normal",
     },
   },
   defaultVariants: {
@@ -54,7 +54,6 @@ const textVariants = cva("font-text", {
       body: "text-text-body",
       heading: "text-text-heading",
       caption: "text-text-caption",
-      muted: "text-text-muted",
     },
     size: {
       xs: "text-xs leading-[16px]",
@@ -107,7 +106,7 @@ const Eyebrow = React.forwardRef<HTMLSpanElement, EyebrowProps>(
     <span
       ref={ref}
       className={cn(
-        "font-mono text-[14px] leading-[20px] uppercase tracking-wider text-text-caption",
+        "eyebrow font-mono text-[14px] leading-[20px] uppercase tracking-wider text-text-caption",
         className
       )}
       {...props}
@@ -129,7 +128,7 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     <label
       ref={ref}
       className={cn(
-        "font-text text-sm leading-[18px] font-medium text-text-heading",
+        "font-text text-sm leading-[18px] font-normal text-text-heading",
         className
       )}
       {...props}

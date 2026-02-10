@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/utils";
 
 const inputVariants = cva(
-  "flex w-full font-text bg-surface text-text-heading placeholder:text-text-caption border border-border transition-all duration-base ease-apple file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-birne-purple focus-visible:ring-offset-0 focus-visible:border-birne-purple disabled:cursor-not-allowed disabled:opacity-50",
+  "flex w-full font-text bg-surface text-text-heading placeholder:text-text-caption border border-birne-black-20 transition-all duration-base ease-apple file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[1.5px] focus-visible:border-birne-black disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       size: {
@@ -37,7 +37,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           inputVariants({ size, variant, className }),
-          error && "border-red-500 focus-visible:ring-red-500"
+          error && "border-red-500 text-red-600 focus-visible:border-red-500"
         )}
         ref={ref}
         {...props}
@@ -52,7 +52,7 @@ Input.displayName = "Input";
 // ============================================
 
 const textareaVariants = cva(
-  "flex min-h-[80px] w-full font-text bg-surface text-text-heading placeholder:text-text-caption border border-border transition-all duration-base ease-apple focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-birne-purple focus-visible:ring-offset-0 focus-visible:border-birne-purple disabled:cursor-not-allowed disabled:opacity-50 resize-none",
+  "flex min-h-[80px] w-full font-text bg-surface text-text-heading placeholder:text-text-caption border border-birne-black-20 transition-all duration-base ease-apple focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[1.5px] focus-visible:border-birne-black disabled:cursor-not-allowed disabled:opacity-50 resize-none",
   {
     variants: {
       size: {
@@ -79,7 +79,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <textarea
         className={cn(
           textareaVariants({ size, className }),
-          error && "border-red-500 focus-visible:ring-red-500"
+          error && "border-red-500 text-red-600 focus-visible:border-red-500"
         )}
         ref={ref}
         {...props}

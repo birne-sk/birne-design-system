@@ -64,7 +64,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
             {/* Link Columns */}
             {columns?.map((column, index) => (
               <div key={index}>
-                <h4 className="font-display text-md font-medium mb-4">
+                <h4 className="font-display text-md font-normal mb-4">
                   {column.title}
                 </h4>
                 <ul className="space-y-2">

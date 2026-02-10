@@ -38,7 +38,7 @@ const TeamCard = React.forwardRef<HTMLDivElement, TeamCardProps>(
             className="w-16 h-16 rounded-full object-cover"
           />
           <div className="flex-1 min-w-0">
-            <h4 className="font-display text-md font-medium text-text-heading truncate">
+            <h4 className="font-display text-md font-normal text-text-heading truncate">
               {member.name}
             </h4>
             <p className="font-text text-sm text-text-caption truncate">
@@ -69,7 +69,7 @@ const TeamCard = React.forwardRef<HTMLDivElement, TeamCardProps>(
             alt={member.name}
             className="w-20 h-20 rounded-full object-cover mx-auto mb-3"
           />
-          <h4 className="font-display text-base font-medium text-text-heading">
+          <h4 className="font-display text-base font-normal text-text-heading">
             {member.name}
           </h4>
           <p className="font-text text-sm text-text-caption">
@@ -97,7 +97,7 @@ const TeamCard = React.forwardRef<HTMLDivElement, TeamCardProps>(
           />
         </div>
         <div className="p-5">
-          <h4 className="font-display text-lg font-medium text-text-heading">
+          <h4 className="font-display text-lg font-normal text-text-heading">
             {member.name}
           </h4>
           <p className="font-mono text-xs uppercase tracking-wider text-text-caption mt-1">

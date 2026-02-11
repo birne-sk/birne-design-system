@@ -8,7 +8,7 @@ import { Calendar } from "lucide-react";
 // ============================================
 
 const capacityVariants = cva(
-  "inline-flex items-center justify-center font-text text-xs font-medium px-2 py-0.5 rounded",
+  "inline-flex items-center justify-center font-text text-xs font-medium px-2 py-0.5 rounded-full",
   {
     variants: {
       status: {

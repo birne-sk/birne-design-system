@@ -14,7 +14,7 @@ const meta: Meta<typeof Badge> = {
       control: "select",
       options: [
         "default", "purple", "lemon", "dark",
-        "outline", "outlineLight", "outlineDark",
+        "onDark", "onPurple", "onGray",
         "glass", "glassDark", "glassPurple", "glassLemon",
         "success", "warning", "destructive", "info"
       ],
@@ -57,15 +57,21 @@ export const SolidVariants: Story = {
   ),
 };
 
-export const OutlineVariants: Story = {
+export const OnColoredBackgrounds: Story = {
+  name: "Na farebných pozadiach",
   render: () => (
     <div className="space-y-4">
-      <div className="flex gap-2 p-4 bg-white rounded-lg">
-        <Badge variant="outline">Outline</Badge>
-        <Badge variant="outlineDark">Outline Dark</Badge>
+      <div className="flex gap-2 p-4 bg-birne-purple rounded-lg">
+        <Badge variant="onPurple" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onPurple" icon={<MapPin size={12} />}>Bratislava</Badge>
       </div>
       <div className="flex gap-2 p-4 bg-birne-black rounded-lg">
-        <Badge variant="outlineLight">Outline Light</Badge>
+        <Badge variant="onDark" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onDark" icon={<MapPin size={12} />}>Bratislava</Badge>
+      </div>
+      <div className="flex gap-2 p-4 bg-birne-black-5 rounded-lg">
+        <Badge variant="onGray" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onGray" icon={<MapPin size={12} />}>Bratislava</Badge>
       </div>
     </div>
   ),
@@ -114,28 +120,13 @@ export const GlassOnPhoto: Story = {
   ),
 };
 
-export const GlassOnDark: Story = {
-  name: "Glass - Na tmavom pozadí",
+export const OnGrayBackground: Story = {
+  name: "Na sivom pozadí",
   render: () => (
-    <div className="bg-birne-black p-8 rounded-xl max-w-lg">
+    <div className="bg-birne-black-5 p-8 rounded-xl max-w-lg">
       <div className="flex gap-2 mb-4">
-        <Badge variant="glassDark" icon={<Clock size={12} />}>60 minút</Badge>
-      </div>
-      <h3 className="font-display text-xl text-white mb-2">Produktivita s Claude</h3>
-      <p className="font-text text-sm text-white/70">
-        Workflow, vďaka ktorému ušetríte desiatky hodín mesačne.
-      </p>
-    </div>
-  ),
-};
-
-export const GlassOnPurple: Story = {
-  name: "Glass - Na fialovom pozadí",
-  render: () => (
-    <div className="bg-birne-purple p-8 rounded-xl max-w-lg">
-      <div className="flex gap-2 mb-4">
-        <Badge variant="glassPurple" icon={<Calendar size={12} />}>19.2.2026</Badge>
-        <Badge variant="glassPurple" icon={<MapPin size={12} />}>Bratislava</Badge>
+        <Badge variant="onGray" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onGray" icon={<MapPin size={12} />}>Bratislava</Badge>
       </div>
       <h3 className="font-display text-2xl text-birne-black mb-2">
         4 hodiny, ktoré vám ušetria ďalšie desiatky hodín mesačne
@@ -147,19 +138,42 @@ export const GlassOnPurple: Story = {
   ),
 };
 
-export const GlassOnLemon: Story = {
-  name: "Glass - Na žltom pozadí",
+export const OnDarkBackground: Story = {
+  name: "Na tmavom pozadí",
   render: () => (
-    <div className="bg-birne-lemon p-8 rounded-xl max-w-lg">
+    <div className="bg-birne-black p-8 rounded-xl max-w-lg">
       <div className="flex gap-2 mb-4">
-        <Badge variant="glassLemon" icon={<Tag size={12} />}>Novinka</Badge>
+        <Badge variant="onDark" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onDark" icon={<MapPin size={12} />}>Bratislava</Badge>
       </div>
-      <h3 className="font-display text-2xl text-birne-black">
-        Nová služba
+      <h3 className="font-display text-2xl text-white mb-2">
+        4 hodiny, ktoré vám ušetria ďalšie desiatky hodín mesačne
       </h3>
+      <Button variant="primary" className="mt-4">
+        V ponuke na birne.sk <ArrowRight size={16} />
+      </Button>
     </div>
   ),
 };
+
+export const OnPurpleBackground: Story = {
+  name: "Na fialovom pozadí",
+  render: () => (
+    <div className="bg-birne-purple p-8 rounded-xl max-w-lg">
+      <div className="flex gap-2 mb-4">
+        <Badge variant="onPurple" icon={<Calendar size={12} />}>19.2.2026</Badge>
+        <Badge variant="onPurple" icon={<MapPin size={12} />}>Bratislava</Badge>
+      </div>
+      <h3 className="font-display text-2xl text-birne-black mb-2">
+        4 hodiny, ktoré vám ušetria ďalšie desiatky hodín mesačne
+      </h3>
+      <Button variant="primary" className="mt-4">
+        V ponuke na birne.sk <ArrowRight size={16} />
+      </Button>
+    </div>
+  ),
+};
+
 
 // ============================================
 // Real-World Examples
@@ -171,11 +185,11 @@ export const EventCard: Story = {
     <ImageCard
       src={MOOD_PHOTOS.dec2025_006}
       height={500}
-      overlay="none"
+      overlay="gradient"
       contentPosition="top-left"
-      className="max-w-md"
+      className="max-w-2xl"
     >
-      <div className="space-y-4">
+      <div className="flex flex-col justify-between h-full">
         <div className="flex gap-2">
           <Badge variant="glass" size="lg" icon={<Calendar size={14} />}>
             19.2.2026
@@ -185,18 +199,14 @@ export const EventCard: Story = {
           </Badge>
         </div>
 
-        <div className="mt-8">
-          <ImageText variant="eyebrow" color="dark" shadow="none" className="mb-2">
-            AI V MARKETINGU
-          </ImageText>
-          <ImageText variant="title" as="h2" color="dark" shadow="none" className="text-3xl">
-            Ušetrite desiatky hodín mesačne s AI v marketingu
-          </ImageText>
+        <div>
+          <h2 className="font-display text-3xl text-white mb-4">
+            4 hodiny, ktoré vám ušetria ďalšie desiatky hodín mesačne
+          </h2>
+          <Button variant="primary" size="lg">
+            V ponuke na birne.sk <ArrowRight size={18} />
+          </Button>
         </div>
-
-        <Button variant="primary" size="lg" className="mt-6">
-          Kúpiť kurz <ArrowRight size={18} />
-        </Button>
       </div>
     </ImageCard>
   ),
@@ -215,7 +225,7 @@ export const CourseProgram: Story = {
           { title: "Marketingová analýza", desc: "Automatizovaný zber dát zo sociálnych sietí a prehľad o trhu." },
         ].map((item, i) => (
           <div key={i} className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10">
-            <Badge variant="glassDark" size="md" icon={<Clock size={12} />} className="mb-3">
+            <Badge variant="onDark" size="md" icon={<Clock size={12} />} className="mb-3">
               60 minút
             </Badge>
             <h3 className="font-display text-lg text-white mb-2">{item.title}</h3>
@@ -227,36 +237,6 @@ export const CourseProgram: Story = {
   ),
 };
 
-export const BlogPostMeta: Story = {
-  name: "Príklad: Blog metadata",
-  render: () => (
-    <div className="space-y-4">
-      {/* Na bielom pozadí */}
-      <div className="bg-white p-4 rounded-lg border border-border">
-        <div className="flex gap-2 mb-2">
-          <Badge variant="purple">Marketing</Badge>
-          <Badge variant="default" icon={<Clock size={10} />}>5 min čítanie</Badge>
-        </div>
-        <h3 className="font-display text-lg">Ako vybudovať značku</h3>
-      </div>
-
-      {/* Na fotke */}
-      <ImageCard
-        src={MOOD_PHOTOS.dec2025_030}
-        aspectRatio="video"
-        overlay="gradient"
-        contentPosition="bottom-left"
-        className="max-w-md"
-      >
-        <div className="flex gap-2 mb-2">
-          <Badge variant="glass">Marketing</Badge>
-          <Badge variant="glass" icon={<Clock size={10} />}>5 min</Badge>
-        </div>
-        <ImageText variant="subtitle">Ako vybudovať značku</ImageText>
-      </ImageCard>
-    </div>
-  ),
-};
 
 // ============================================
 // Guidelines
@@ -280,7 +260,7 @@ export const Guidelines: Story = {
             <tbody>
               <tr className="border-b border-border">
                 <td className="py-3 pr-4">Biele/svetlé</td>
-                <td className="py-3 pr-4"><code>default</code>, <code>purple</code>, <code>outline</code></td>
+                <td className="py-3 pr-4"><code>default</code>, <code>purple</code>, <code>lemon</code></td>
                 <td className="py-3"><Badge variant="default">Badge</Badge></td>
               </tr>
               <tr className="border-b border-border">
@@ -290,18 +270,18 @@ export const Guidelines: Story = {
               </tr>
               <tr className="border-b border-border">
                 <td className="py-3 pr-4">Tmavé</td>
-                <td className="py-3 pr-4"><code>glassDark</code>, <code>outlineLight</code></td>
-                <td className="py-3 bg-birne-black px-2 rounded"><Badge variant="glassDark">Badge</Badge></td>
+                <td className="py-3 pr-4"><code>onDark</code></td>
+                <td className="py-3 bg-birne-black px-2 rounded"><Badge variant="onDark">Badge</Badge></td>
               </tr>
               <tr className="border-b border-border">
                 <td className="py-3 pr-4">Fialové</td>
-                <td className="py-3 pr-4"><code>glassPurple</code></td>
-                <td className="py-3 bg-birne-purple px-2 rounded"><Badge variant="glassPurple">Badge</Badge></td>
+                <td className="py-3 pr-4"><code>onPurple</code></td>
+                <td className="py-3 bg-birne-purple px-2 rounded"><Badge variant="onPurple">Badge</Badge></td>
               </tr>
               <tr>
-                <td className="py-3 pr-4">Žlté</td>
-                <td className="py-3 pr-4"><code>glassLemon</code></td>
-                <td className="py-3 bg-birne-lemon px-2 rounded"><Badge variant="glassLemon">Badge</Badge></td>
+                <td className="py-3 pr-4">Sivé</td>
+                <td className="py-3 pr-4"><code>onGray</code></td>
+                <td className="py-3 bg-birne-black-5 px-2 rounded"><Badge variant="onGray">Badge</Badge></td>
               </tr>
             </tbody>
           </table>

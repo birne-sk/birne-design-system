@@ -122,8 +122,14 @@ export const Instructors: Story = {
     <Box variant="subtle" padding="lg" className="max-w-2xl">
       <Text weight="medium" className="mb-4">Lektori</Text>
       <div className="flex flex-wrap gap-3">
-        <InstructorBadge name="Jakub Kováč" />
-        <InstructorBadge name="Martin Horváth" />
+        <InstructorBadge
+          name="Jakub Hrušovský"
+          avatarUrl="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Jakub.jpg"
+        />
+        <InstructorBadge
+          name="Marek Šulik"
+          avatarUrl="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg"
+        />
       </div>
     </Box>
   ),
@@ -160,7 +166,7 @@ export const InstructorWithPhoto: Story = {
           avatarUrl="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Jakub.jpg"
         />
         <InstructorBadge
-          name="Marek Baláž"
+          name="Marek Šulik"
           avatarUrl="https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg"
         />
       </div>
@@ -182,7 +188,7 @@ export const InstructorSelectable: Story = {
 
     const instructors = [
       { name: "Jakub Hrušovský", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Jakub.jpg" },
-      { name: "Marek Baláž", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg" },
+      { name: "Marek Šulik", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg" },
       { name: "Anna Nováková" },
     ];
 
@@ -234,7 +240,7 @@ export const CourseFilters: Story = {
 
     const instructors = [
       { name: "Jakub Hrušovský", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Jakub.jpg" },
-      { name: "Marek Baláž", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg" },
+      { name: "Marek Šulik", avatarUrl: "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/birne-assets/Fotky/Team/Marek.jpg" },
     ];
 
     return (

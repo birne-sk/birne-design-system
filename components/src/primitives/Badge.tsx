@@ -13,10 +13,10 @@ const badgeVariants = cva(
         lemon: "bg-birne-lemon text-birne-black",
         dark: "bg-birne-black text-white",
 
-        // Outline variants
-        outline: "border border-border bg-transparent text-text-body",
-        outlineLight: "border border-white/30 bg-transparent text-white",
-        outlineDark: "border border-birne-black/20 bg-transparent text-birne-black",
+        // On colored backgrounds (same color, lighter)
+        onDark: "bg-white/15 text-white",
+        onPurple: "bg-birne-purple-40 text-birne-black",
+        onGray: "bg-white text-birne-black",
 
         // Glass variants (for use on images/colored backgrounds)
         glass: "bg-white/80 backdrop-blur-md text-birne-black border border-white/20",

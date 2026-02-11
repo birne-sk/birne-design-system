@@ -162,6 +162,28 @@ const shadows = {
   xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
 };
 
+// AI Symbolics tokens
+const ai = {
+  gradient: {
+    stops: ['#4338CA', '#A78BFA', '#22D3EE'],
+    linear: 'linear-gradient(135deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%)',
+    linearHorizontal: 'linear-gradient(90deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%)',
+    animated: 'linear-gradient(135deg, #4338CA 0%, #A78BFA 25%, #22D3EE 50%, #A78BFA 75%, #4338CA 100%)',
+  },
+  colors: {
+    indigo: '#4338CA',
+    violet: '#A78BFA',
+    cyan: '#22D3EE',
+    surface: '#EEF2FF',
+    border: '#A78BFA',
+  },
+  glow: {
+    sm: '0 0 8px rgba(167, 139, 250, 0.3)',
+    md: '0 0 16px rgba(167, 139, 250, 0.4)',
+    lg: '0 0 24px rgba(167, 139, 250, 0.5)',
+  },
+};
+
 // ============================================
 // Utility Functions
 // ============================================
@@ -273,6 +295,31 @@ function generateCSSVariables() {
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === AI Symbolics === */
+  --ai-gradient: ${ai.gradient.linear};
+  --ai-gradient-horizontal: ${ai.gradient.linearHorizontal};
+  --ai-gradient-animated: ${ai.gradient.animated};
+  --ai-color-indigo: ${ai.colors.indigo};
+  --ai-color-violet: ${ai.colors.violet};
+  --ai-color-cyan: ${ai.colors.cyan};
+  --ai-color-surface: ${ai.colors.surface};
+  --ai-color-border: ${ai.colors.border};
+  --ai-glow-sm: ${ai.glow.sm};
+  --ai-glow-md: ${ai.glow.md};
+  --ai-glow-lg: ${ai.glow.lg};
+}
+
+/* === AI Gradient Animation === */
+@keyframes ai-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes ai-glow-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 `;
 
@@ -406,10 +453,43 @@ module.exports = {
         surface: "var(--surface)",
         border: "var(--border)",
         hover: "var(--hover)",
+        "ai": {
+          DEFAULT: "${ai.colors.violet}",
+          indigo: "${ai.colors.indigo}",
+          violet: "${ai.colors.violet}",
+          cyan: "${ai.colors.cyan}",
+          surface: "${ai.colors.surface}",
+          border: "${ai.colors.border}",
+        },
+      },
+      backgroundImage: {
+        "ai-gradient": "var(--ai-gradient)",
+        "ai-gradient-horizontal": "var(--ai-gradient-horizontal)",
+        "ai-gradient-animated": "var(--ai-gradient-animated)",
       },
       spacing: ${JSON.stringify(spacing, null, 8).replace(/\n/g, '\n      ')},
       borderRadius: ${JSON.stringify(borderRadius, null, 8).replace(/\n/g, '\n      ')},
-      boxShadow: ${JSON.stringify(shadows, null, 8).replace(/\n/g, '\n      ')},
+      boxShadow: {
+        ...${JSON.stringify(shadows, null, 8).replace(/\n/g, '\n      ')},
+        "ai-sm": "${ai.glow.sm}",
+        "ai-md": "${ai.glow.md}",
+        "ai-lg": "${ai.glow.lg}",
+      },
+      animation: {
+        "ai-gradient": "ai-gradient-shift 3s ease-in-out infinite",
+        "ai-glow-pulse": "ai-glow-pulse 2s ease-in-out infinite",
+      },
+      keyframes: {
+        "ai-gradient-shift": {
+          "0%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+          "100%": { "background-position": "0% 50%" },
+        },
+        "ai-glow-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+      },
       transitionDuration: {
         fast: "150ms",
         base: "200ms",
@@ -436,6 +516,7 @@ function generateJSTokens() {
     spacing,
     borderRadius,
     shadows,
+    ai,
     fontUrls: {
       conforto: {
         regular: `${SUPABASE_FONT_BASE}/Conforto-Regular.otf`,
@@ -466,6 +547,7 @@ module.exports.typography = tokens.typography;
 module.exports.spacing = tokens.spacing;
 module.exports.borderRadius = tokens.borderRadius;
 module.exports.shadows = tokens.shadows;
+module.exports.ai = tokens.ai;
 `;
 
   const esm = `/**
@@ -483,6 +565,7 @@ export const spacing = tokens.spacing;
 export const borderRadius = tokens.borderRadius;
 export const shadows = tokens.shadows;
 export const fontUrls = tokens.fontUrls;
+export const ai = tokens.ai;
 `;
 
   return { cjs, esm };
@@ -820,6 +903,40 @@ ${Object.entries(borderRadius).map(([key, val]) => `| ${key} | ${val} |`).join('
 | Token | Hodnota |
 |-------|---------|
 ${Object.entries(shadows).map(([key, val]) => `| ${key} | \`${val}\` |`).join('\n')}
+
+## AI Symbolika
+
+Vizualny jazyk pre AI-powered features.
+
+### AI Gradient
+
+\`Dark Purple → Purple → Lemon\`
+
+| Stop | Hex |
+|------|-----|
+| 1 (Dark Purple) | \`${ai.gradient.stops[0]}\` |
+| 2 (Purple) | \`${ai.gradient.stops[1]}\` |
+| 3 (Lemon) | \`${ai.gradient.stops[2]}\` |
+
+CSS: \`${ai.gradient.linear}\`
+
+### AI Farby
+
+| Token | Hex | Pouzitie |
+|-------|-----|----------|
+| ai.indigo | \`${ai.colors.indigo}\` | Deep anchor (Indigo) |
+| ai.violet | \`${ai.colors.violet}\` | Middle bridge (Violet) |
+| ai.cyan | \`${ai.colors.cyan}\` | Bright end (Cyan) |
+| ai.surface | \`${ai.colors.surface}\` | AI pozadie/surface |
+| ai.border | \`${ai.colors.border}\` | AI border fallback |
+
+### AI Glow
+
+| Token | Hodnota |
+|-------|---------|
+| ai-glow-sm | \`${ai.glow.sm}\` |
+| ai-glow-md | \`${ai.glow.md}\` |
+| ai-glow-lg | \`${ai.glow.lg}\` |
 `;
 }
 

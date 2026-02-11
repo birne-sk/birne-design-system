@@ -74,6 +74,19 @@ module.exports = {
         surface: "var(--surface)",
         border: "var(--border)",
         hover: "var(--hover)",
+        "ai": {
+          DEFAULT: "#A78BFA",
+          indigo: "#4338CA",
+          violet: "#A78BFA",
+          cyan: "#22D3EE",
+          surface: "#EEF2FF",
+          border: "#A78BFA",
+        },
+      },
+      backgroundImage: {
+        "ai-gradient": "var(--ai-gradient)",
+        "ai-gradient-horizontal": "var(--ai-gradient-horizontal)",
+        "ai-gradient-animated": "var(--ai-gradient-animated)",
       },
       spacing: {
               "xs": "4px",
@@ -98,11 +111,31 @@ module.exports = {
               "full": "9999px"
       },
       boxShadow: {
+        ...{
               "xs": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
               "sm": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
               "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
               "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
               "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+      },
+        "ai-sm": "0 0 8px rgba(167, 139, 250, 0.3)",
+        "ai-md": "0 0 16px rgba(167, 139, 250, 0.4)",
+        "ai-lg": "0 0 24px rgba(167, 139, 250, 0.5)",
+      },
+      animation: {
+        "ai-gradient": "ai-gradient-shift 3s ease-in-out infinite",
+        "ai-glow-pulse": "ai-glow-pulse 2s ease-in-out infinite",
+      },
+      keyframes: {
+        "ai-gradient-shift": {
+          "0%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+          "100%": { "background-position": "0% 50%" },
+        },
+        "ai-glow-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
       },
       transitionDuration: {
         fast: "150ms",

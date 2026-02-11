@@ -9,6 +9,7 @@ export * from './typography';
 export * from './spacing';
 export * from './borders';
 export * from './shadows';
+export * from './ai';
 
 // Import defaults for combined export
 import { colors } from './colors';
@@ -16,6 +17,7 @@ import { typography } from './typography';
 import { spacingTokens } from './spacing';
 import { borders } from './borders';
 import { shadows } from './shadows';
+import { ai } from './ai';
 
 // ============================================
 // Animation / Transition Tokens
@@ -122,6 +124,7 @@ export const tokens = {
   breakpoints,
   assets,
   logo,
+  ai,
 } as const;
 
 export default tokens;

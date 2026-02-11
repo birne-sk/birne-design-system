@@ -146,6 +146,30 @@ const tokens = {
     "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
     "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
   },
+  "ai": {
+    "gradient": {
+      "stops": [
+        "#4338CA",
+        "#A78BFA",
+        "#22D3EE"
+      ],
+      "linear": "linear-gradient(135deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%)",
+      "linearHorizontal": "linear-gradient(90deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%)",
+      "animated": "linear-gradient(135deg, #4338CA 0%, #A78BFA 25%, #22D3EE 50%, #A78BFA 75%, #4338CA 100%)"
+    },
+    "colors": {
+      "indigo": "#4338CA",
+      "violet": "#A78BFA",
+      "cyan": "#22D3EE",
+      "surface": "#EEF2FF",
+      "border": "#A78BFA"
+    },
+    "glow": {
+      "sm": "0 0 8px rgba(167, 139, 250, 0.3)",
+      "md": "0 0 16px rgba(167, 139, 250, 0.4)",
+      "lg": "0 0 24px rgba(167, 139, 250, 0.5)"
+    }
+  },
   "fontUrls": {
     "conforto": {
       "regular": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf",
@@ -170,3 +194,4 @@ export const spacing = tokens.spacing;
 export const borderRadius = tokens.borderRadius;
 export const shadows = tokens.shadows;
 export const fontUrls = tokens.fontUrls;
+export const ai = tokens.ai;

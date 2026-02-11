@@ -115,4 +115,29 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === AI Symbolics === */
+  --ai-gradient: linear-gradient(135deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%);
+  --ai-gradient-horizontal: linear-gradient(90deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%);
+  --ai-gradient-animated: linear-gradient(135deg, #4338CA 0%, #A78BFA 25%, #22D3EE 50%, #A78BFA 75%, #4338CA 100%);
+  --ai-color-indigo: #4338CA;
+  --ai-color-violet: #A78BFA;
+  --ai-color-cyan: #22D3EE;
+  --ai-color-surface: #EEF2FF;
+  --ai-color-border: #A78BFA;
+  --ai-glow-sm: 0 0 8px rgba(167, 139, 250, 0.3);
+  --ai-glow-md: 0 0 16px rgba(167, 139, 250, 0.4);
+  --ai-glow-lg: 0 0 24px rgba(167, 139, 250, 0.5);
+}
+
+/* === AI Gradient Animation === */
+@keyframes ai-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes ai-glow-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }

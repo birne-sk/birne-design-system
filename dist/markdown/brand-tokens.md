@@ -211,3 +211,37 @@
 | md | `0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)` |
 | lg | `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)` |
 | xl | `0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)` |
+
+## AI Symbolika
+
+Vizualny jazyk pre AI-powered features.
+
+### AI Gradient
+
+`Dark Purple → Purple → Lemon`
+
+| Stop | Hex |
+|------|-----|
+| 1 (Dark Purple) | `#4338CA` |
+| 2 (Purple) | `#A78BFA` |
+| 3 (Lemon) | `#22D3EE` |
+
+CSS: `linear-gradient(135deg, #4338CA 0%, #A78BFA 50%, #22D3EE 100%)`
+
+### AI Farby
+
+| Token | Hex | Pouzitie |
+|-------|-----|----------|
+| ai.indigo | `#4338CA` | Deep anchor (Indigo) |
+| ai.violet | `#A78BFA` | Middle bridge (Violet) |
+| ai.cyan | `#22D3EE` | Bright end (Cyan) |
+| ai.surface | `#EEF2FF` | AI pozadie/surface |
+| ai.border | `#A78BFA` | AI border fallback |
+
+### AI Glow
+
+| Token | Hodnota |
+|-------|---------|
+| ai-glow-sm | `0 0 8px rgba(167, 139, 250, 0.3)` |
+| ai-glow-md | `0 0 16px rgba(167, 139, 250, 0.4)` |
+| ai-glow-lg | `0 0 24px rgba(167, 139, 250, 0.5)` |

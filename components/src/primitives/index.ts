@@ -35,3 +35,6 @@ export * from "./ImageCard";
 export * from "./Container";
 export * from "./StarRating";
 export * from "./CourseBadge";
+export * from "./AiBadge";
+export * from "./AiIcon";
+export * from "./AiGlow";

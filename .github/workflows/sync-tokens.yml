@@ -1,0 +1,50 @@
+name: Sync tokens to birne-generators
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tokens/src/**'
+      - 'components/src/primitives/**'
+      - 'scripts/build-tokens.js'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout design-system
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build tokens
+        run: node scripts/build-tokens.js
+
+      - name: Checkout birne-generators
+        uses: actions/checkout@v4
+        with:
+          repository: birne-sk/birne-generators
+          token: ${{ secrets.GENERATORS_SYNC_TOKEN }}
+          path: birne-generators
+
+      - name: Copy generated files
+        run: |
+          cp dist/markdown/brand-tokens.md birne-generators/.claude/capabilities/base/brand-tokens.md
+          cp dist/markdown/components-inline.md birne-generators/.claude/capabilities/base/components-inline.md
+
+      - name: Commit and push to generators
+        run: |
+          cd birne-generators
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .claude/capabilities/base/brand-tokens.md .claude/capabilities/base/components-inline.md
+          if git diff --staged --quiet; then
+            echo "No changes to sync"
+          else
+            git commit -m "Sync design tokens from birne-design-system"
+            git push
+            echo "Tokens synced successfully"
+          fi

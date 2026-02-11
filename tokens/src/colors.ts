@@ -138,8 +138,8 @@ export const shapeGolden = {
 
 export const semantic = {
   success: {
-    DEFAULT: '#29A88E',
-    light: '#E5F5F1',
+    DEFAULT: '#3DA385',
+    light: '#E8F5F0',
   },
   warning: {
     DEFAULT: '#E5A435',

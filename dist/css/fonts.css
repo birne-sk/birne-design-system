@@ -6,14 +6,14 @@
 /* Conforto - Display Font */
 @font-face {
   font-family: 'Conforto';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Regular.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf') format('opentype');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Conforto';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Medium.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: swap;
 }
@@ -21,14 +21,21 @@
 /* General Sans - Text Font */
 @font-face {
   font-family: 'General Sans';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Regular.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Regular.otf') format('opentype');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'General Sans';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Medium.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: swap;
 }
@@ -36,7 +43,7 @@
 /* JetBrains Mono - Monospace Font */
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 800;
   font-display: swap;
 }

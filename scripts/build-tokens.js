@@ -653,6 +653,177 @@ module.exports.inlineStyles = inlineStyles;
 }
 
 // ============================================
+// Generate Markdown Tokens (for birne-generators)
+// ============================================
+
+function generateMarkdownTokens() {
+  function colorScaleTable(name, scale) {
+    const keys = Object.keys(scale).sort((a, b) => Number(b) - Number(a));
+    let rows = keys.map(k => `| ${name}.${k} | \`${scale[k]}\` |`).join('\n');
+    return rows;
+  }
+
+  return `# Birne Brand Tokeny
+
+> Auto-generated z birne-design-system. NEEDITUJ MANUALNE.
+> Zdroj: \`birne-design-system/scripts/build-tokens.js\`
+
+## Farby
+
+### Birne Black (primarny tmavy)
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birneBlack', colors.birneBlack)}
+
+### Birne Purple (fialovy akcent)
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birnePurple', colors.birnePurple)}
+
+### Birne Dark Purple
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birneDarkPurple', colors.birneDarkPurple)}
+
+### Birne Lemon (zluty akcent)
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birneLemon', colors.birneLemon)}
+
+### Birne Sand (pozadia)
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birneSand', colors.birneSand)}
+
+### Birne Grapefruit (teply akcent)
+
+| Token | Hex |
+|-------|-----|
+${colorScaleTable('birneGrapefruit', colors.birneGrapefruit)}
+
+### Textove farby
+
+| Token | Hex | Pouzitie |
+|-------|-----|----------|
+| textHeading | \`#221924\` | Nadpisy, hlavny text |
+| textBody | \`#514A53\` | Body text |
+| textCaption | \`#A09BA3\` | Caption, labels, sekundarny text |
+| textMuted | \`#C2BFC3\` | Disabled, placeholder |
+
+### Semanticke farby
+
+| Token | Hex |
+|-------|-----|
+| success | \`#3DA385\` |
+| successLight | \`#E8F5F0\` |
+| warning | \`#E5A435\` |
+| warningLight | \`#FCF4E5\` |
+| danger | \`#DC3545\` |
+| dangerLight | \`#FDE8EA\` |
+
+### UI farby
+
+| Token | Hex |
+|-------|-----|
+| background | \`#FFFFFF\` |
+| surface | \`#FFFFFF\` |
+| border | \`#D1D1D6\` |
+| hover | \`#F5F5F7\` |
+
+## Typografia
+
+### Font families
+
+| Token | Hodnota |
+|-------|---------|
+| display | \`'Conforto', serif\` |
+| text | \`'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif\` |
+| mono | \`'JetBrains Mono', monospace\` |
+
+### Velkostna skala
+
+| Token | Font size | Line height |
+|-------|-----------|-------------|
+${Object.entries(typography.fontSize).map(([key, size]) => `| ${key} | ${size} | ${typography.lineHeight[key]} |`).join('\n')}
+
+### Font URLs (Supabase CDN)
+
+| Font | Variant | URL |
+|------|---------|-----|
+| Conforto | Regular (400) | \`${SUPABASE_FONT_BASE}/Conforto-Regular.otf\` |
+| Conforto | Medium (500) | \`${SUPABASE_FONT_BASE}/Conforto-Medium.otf\` |
+| General Sans | Light (300) | \`${SUPABASE_FONT_BASE}/GeneralSans-Light.otf\` |
+| General Sans | Regular (400) | \`${SUPABASE_FONT_BASE}/GeneralSans-Regular.otf\` |
+| General Sans | Medium (500) | \`${SUPABASE_FONT_BASE}/GeneralSans-Medium.otf\` |
+| JetBrains Mono | Variable (100-800) | \`${SUPABASE_FONT_BASE}/JetBrainsMono-VariableFont_wght.ttf\` |
+
+### @font-face deklaracie
+
+\`\`\`css
+@font-face {
+  font-family: 'Conforto';
+  src: url('${SUPABASE_FONT_BASE}/Conforto-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Conforto';
+  src: url('${SUPABASE_FONT_BASE}/Conforto-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('${SUPABASE_FONT_BASE}/GeneralSans-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('${SUPABASE_FONT_BASE}/GeneralSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('${SUPABASE_FONT_BASE}/GeneralSans-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('${SUPABASE_FONT_BASE}/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 800;
+  font-display: swap;
+}
+\`\`\`
+
+## Spacing
+
+| Token | Hodnota |
+|-------|---------|
+${Object.entries(spacing).map(([key, val]) => `| ${key} | ${val} |`).join('\n')}
+
+## Border Radius
+
+| Token | Hodnota |
+|-------|---------|
+${Object.entries(borderRadius).map(([key, val]) => `| ${key} | ${val} |`).join('\n')}
+
+## Shadows
+
+| Token | Hodnota |
+|-------|---------|
+${Object.entries(shadows).map(([key, val]) => `| ${key} | \`${val}\` |`).join('\n')}
+`;
+}
+
+// ============================================
 // Main Build Function
 // ============================================
 
@@ -666,6 +837,7 @@ function build() {
   ensureDir(path.join(distDir, 'tailwind'));
   ensureDir(path.join(distDir, 'js'));
   ensureDir(path.join(distDir, 'inline'));
+  ensureDir(path.join(distDir, 'markdown'));
 
   // Generate CSS Variables
   console.log('  📄 Generating CSS variables...');
@@ -708,6 +880,18 @@ function build() {
     generateInlineStyles()
   );
 
+  // Generate Markdown Tokens
+  console.log('  📄 Generating markdown tokens...');
+  const markdownPath = path.join(distDir, 'markdown', 'brand-tokens.md');
+  fs.writeFileSync(markdownPath, generateMarkdownTokens());
+
+  // Auto-copy to birne-generators if it exists
+  const generatorsPath = path.join(__dirname, '..', '..', 'birne-generators', '.claude', 'capabilities', 'base');
+  if (fs.existsSync(generatorsPath)) {
+    fs.copyFileSync(markdownPath, path.join(generatorsPath, 'brand-tokens.md'));
+    console.log('  📋 Copied brand-tokens.md to birne-generators');
+  }
+
   console.log('\n✅ Build complete! Output files:');
   console.log('   dist/css/variables.css');
   console.log('   dist/css/fonts.css');
@@ -716,6 +900,7 @@ function build() {
   console.log('   dist/js/tokens.mjs');
   console.log('   dist/js/tokens.d.ts');
   console.log('   dist/inline/styles.js');
+  console.log('   dist/markdown/brand-tokens.md');
 }
 
 // Run build

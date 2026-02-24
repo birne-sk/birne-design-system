@@ -1,0 +1,20 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { StarRating } from "./StarRating";
+declare const meta: Meta<typeof StarRating>;
+export default meta;
+type Story = StoryObj<typeof StarRating>;
+export declare const Default: Story;
+export declare const FullRating: Story;
+export declare const PartialRating: Story;
+export declare const EmptyRating: Story;
+export declare const Sizes: Story;
+export declare const WithValue: Story;
+export declare const OnDarkBackground: Story;
+export declare const OnPurpleBackground: Story;
+export declare const Interactive: Story;
+export declare const RatingDisplayExample: Story;
+export declare const ProductCard: Story;
+export declare const TestimonialCard: Story;
+export declare const CourseHeader: Story;
+export declare const AllRatings: Story;
+//# sourceMappingURL=StarRating.stories.d.ts.map

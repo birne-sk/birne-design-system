@@ -12,7 +12,7 @@ const path = require('path');
 // Token Definitions (inline to avoid TS compilation)
 // ============================================
 
-const SUPABASE_FONT_BASE = 'https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts';
+const SUPABASE_FONT_BASE = 'https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty';
 
 const colors = {
   birneBlack: {

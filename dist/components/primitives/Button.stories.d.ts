@@ -1,0 +1,24 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
+declare const meta: Meta<typeof Button>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Primary: Story;
+export declare const Secondary: Story;
+export declare const Soft: Story;
+export declare const Destructive: Story;
+export declare const Ghost: Story;
+export declare const AllColors: Story;
+export declare const TextOnly: Story;
+export declare const WithIconLeft: Story;
+export declare const WithArrow: Story;
+export declare const IconOnly: Story;
+export declare const LinkButton: Story;
+export declare const AllVariants: Story;
+export declare const ArrowButtons: Story;
+export declare const CTAExamples: Story;
+export declare const DestructiveVariants: Story;
+export declare const Sizes: Story;
+export declare const Disabled: Story;
+export declare const DisabledAll: Story;
+//# sourceMappingURL=Button.stories.d.ts.map

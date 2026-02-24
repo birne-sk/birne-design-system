@@ -172,16 +172,16 @@ const tokens = {
   },
   "fontUrls": {
     "conforto": {
-      "regular": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf",
-      "medium": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Medium.otf"
+      "regular": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Regular.otf",
+      "medium": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Medium.otf"
     },
     "generalSans": {
-      "light": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Light.otf",
-      "regular": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Regular.otf",
-      "medium": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Medium.otf"
+      "light": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Light.otf",
+      "regular": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Regular.otf",
+      "medium": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Medium.otf"
     },
     "jetbrainsMono": {
-      "variable": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/JetBrainsMono-VariableFont_wght.ttf"
+      "variable": "https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/JetBrainsMono-VariableFont_wght.ttf"
     }
   }
 };

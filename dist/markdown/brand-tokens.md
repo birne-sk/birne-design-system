@@ -126,49 +126,49 @@
 
 | Font | Variant | URL |
 |------|---------|-----|
-| Conforto | Regular (400) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf` |
-| Conforto | Medium (500) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Medium.otf` |
-| General Sans | Light (300) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Light.otf` |
-| General Sans | Regular (400) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Regular.otf` |
-| General Sans | Medium (500) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Medium.otf` |
-| JetBrains Mono | Variable (100-800) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/JetBrainsMono-VariableFont_wght.ttf` |
+| Conforto | Regular (400) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Regular.otf` |
+| Conforto | Medium (500) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Medium.otf` |
+| General Sans | Light (300) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Light.otf` |
+| General Sans | Regular (400) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Regular.otf` |
+| General Sans | Medium (500) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Medium.otf` |
+| JetBrains Mono | Variable (100-800) | `https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/JetBrainsMono-VariableFont_wght.ttf` |
 
 ### @font-face deklaracie
 
 ```css
 @font-face {
   font-family: 'Conforto';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Regular.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Regular.otf') format('opentype');
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: 'Conforto';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/Conforto-Medium.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/Conforto-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: 'General Sans';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Light.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Light.otf') format('opentype');
   font-weight: 300;
   font-display: swap;
 }
 @font-face {
   font-family: 'General Sans';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Regular.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Regular.otf') format('opentype');
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: 'General Sans';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/GeneralSans-Medium.otf') format('opentype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/GeneralSans-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonts/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+  src: url('https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 800;
   font-display: swap;
 }

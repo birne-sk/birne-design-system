@@ -29,6 +29,7 @@
     "build": "npm run build:tokens && npm run build:components",
     "build:tokens": "node scripts/build-tokens.js",
     "build:components": "tsc -p tsconfig.components.json",
+    "sync:paper": "node scripts/sync-to-paper.js",
     "dev": "npm run build:tokens -- --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

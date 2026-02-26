@@ -3,7 +3,7 @@
 /**
  * Birne Design System - Paper.design Sync Script
  *
- * Synchronizuje design tokeny do Paper.design cez MCP (JSON-RPC over HTTP).
+ * Synchronizuje design tokeny do Paper.design cez MCP (Streamable HTTP).
  * Paper Desktop musi byt spusteny s otvorenym suborom.
  *
  * Usage: node scripts/sync-to-paper.js
@@ -40,18 +40,9 @@ const colors = {
 };
 
 const typography = {
-  fontFamily: {
-    display: "'Conforto', serif",
-    text: "'General Sans', sans-serif",
-    mono: "'JetBrains Mono', monospace",
-  },
   fontSize: {
     xs: '11px', sm: '13px', base: '15px', md: '17px', lg: '19px',
     xl: '21px', '2xl': '28px', '3xl': '34px', '4xl': '48px', '5xl': '60px',
-  },
-  lineHeight: {
-    xs: '16px', sm: '18px', base: '22px', md: '24px', lg: '26px',
-    xl: '28px', '2xl': '34px', '3xl': '40px', '4xl': '56px', '5xl': '68px',
   },
 };
 
@@ -65,7 +56,18 @@ const borderRadius = {
   xl: '16px', '2xl': '20px', '3xl': '24px', full: '9999px',
 };
 
-const SUPABASE_FONT_BASE = 'https://qemayuejayunopgxdlrz.supabase.co/storage/v1/object/public/Birne%20Assets/Fonty';
+// ============================================
+// Inline style helpers (Paper nepodporuje <style> bloky)
+// ============================================
+
+const S = {
+  sectionTitle: 'font-family:monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#A09BA3;',
+  groupName: 'font-size:21px;color:#221924;',
+  mono9: 'font-family:monospace;font-size:9px;color:#A09BA3;',
+  mono10: 'font-family:monospace;font-size:10px;color:#A09BA3;',
+  mono10dark: 'font-family:monospace;font-size:10px;color:#221924;',
+  label13: 'font-size:13px;font-weight:500;color:#221924;',
+};
 
 // ============================================
 // MCP Client
@@ -84,7 +86,7 @@ async function mcpRequest(method, params = {}) {
 
   const response = await fetch(PAPER_MCP_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream' },
     body: JSON.stringify(body),
   });
 
@@ -92,7 +94,19 @@ async function mcpRequest(method, params = {}) {
     throw new Error(`Paper MCP error: ${response.status} ${response.statusText}`);
   }
 
-  const result = await response.json();
+  const contentType = response.headers.get('content-type') || '';
+  let result;
+
+  if (contentType.includes('text/event-stream')) {
+    const text = await response.text();
+    const dataLine = text.split('\n').find(line => line.startsWith('data: '));
+    if (!dataLine) {
+      throw new Error('No data in SSE response');
+    }
+    result = JSON.parse(dataLine.slice(6));
+  } else {
+    result = await response.json();
+  }
 
   if (result.error) {
     throw new Error(`MCP error: ${result.error.message || JSON.stringify(result.error)}`);
@@ -110,18 +124,8 @@ async function listTools() {
 }
 
 // ============================================
-// HTML Generators pre Paper artboardy
+// HTML Generators (pure inline styles for Paper)
 // ============================================
-
-function fontFaceCSS() {
-  return `
-    @font-face { font-family: 'Conforto'; src: url('${SUPABASE_FONT_BASE}/Conforto-Regular.otf') format('opentype'); font-weight: 400; }
-    @font-face { font-family: 'Conforto'; src: url('${SUPABASE_FONT_BASE}/Conforto-Medium.otf') format('opentype'); font-weight: 500; }
-    @font-face { font-family: 'General Sans'; src: url('${SUPABASE_FONT_BASE}/GeneralSans-Regular.otf') format('opentype'); font-weight: 400; }
-    @font-face { font-family: 'General Sans'; src: url('${SUPABASE_FONT_BASE}/GeneralSans-Medium.otf') format('opentype'); font-weight: 500; }
-    @font-face { font-family: 'JetBrains Mono'; src: url('${SUPABASE_FONT_BASE}/JetBrainsMono-VariableFont_wght.ttf') format('truetype'); font-weight: 100 800; }
-  `;
-}
 
 function generateColorsHTML() {
   const colorGroups = [
@@ -133,153 +137,116 @@ function generateColorsHTML() {
     { name: 'Birne Grapefruit', key: 'birneGrapefruit', scale: colors.birneGrapefruit },
   ];
 
-  let html = `<style>${fontFaceCSS()}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'General Sans', sans-serif; padding: 48px; background: #FFFFFF; }
-    .section-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #A09BA3; margin-bottom: 16px; }
-    .group-name { font-family: 'Conforto', serif; font-size: 21px; color: #221924; margin-bottom: 12px; }
-    .color-row { display: flex; gap: 8px; margin-bottom: 24px; }
-    .color-swatch { width: 80px; text-align: center; }
-    .swatch-box { width: 80px; height: 56px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(0,0,0,0.06); }
-    .swatch-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #A09BA3; }
-    .swatch-hex { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #221924; margin-top: 2px; }
-  </style>
-  <div>
-    <p class="section-title">Design Tokens / Colors</p>
-  `;
+  let html = `<div style="display:flex;flex-direction:column;gap:24px;padding:48px;width:1100px;">`;
+  html += `<p style="${S.sectionTitle}">Design Tokens / Colors</p>`;
 
   for (const group of colorGroups) {
-    html += `<p class="group-name">${group.name}</p><div class="color-row">`;
+    html += `<p style="${S.groupName}">${group.name}</p>`;
+    html += `<div style="display:flex;gap:8px;margin-bottom:8px;">`;
     const keys = Object.keys(group.scale).sort((a, b) => Number(b) - Number(a));
     for (const key of keys) {
       const hex = group.scale[key];
-      html += `
-        <div class="color-swatch">
-          <div class="swatch-box" style="background: ${hex};"></div>
-          <p class="swatch-label">${group.key}.${key}</p>
-          <p class="swatch-hex">${hex}</p>
-        </div>`;
+      html += `<div style="width:80px;text-align:center;">`;
+      html += `<div style="width:80px;height:56px;border-radius:8px;background:${hex};"></div>`;
+      html += `<p style="${S.mono9}margin-top:4px;">${group.key}.${key}</p>`;
+      html += `<p style="${S.mono10dark}margin-top:2px;">${hex}</p>`;
+      html += `</div>`;
     }
     html += `</div>`;
   }
 
-  // Textove a semanticke farby
-  html += `
-    <p class="group-name">Text Colors</p>
-    <div class="color-row">
-      <div class="color-swatch"><div class="swatch-box" style="background: #221924;"></div><p class="swatch-label">heading</p><p class="swatch-hex">#221924</p></div>
-      <div class="color-swatch"><div class="swatch-box" style="background: #514A53;"></div><p class="swatch-label">body</p><p class="swatch-hex">#514A53</p></div>
-      <div class="color-swatch"><div class="swatch-box" style="background: #A09BA3;"></div><p class="swatch-label">caption</p><p class="swatch-hex">#A09BA3</p></div>
-      <div class="color-swatch"><div class="swatch-box" style="background: #C2BFC3;"></div><p class="swatch-label">muted</p><p class="swatch-hex">#C2BFC3</p></div>
-    </div>
-  </div>`;
+  // Text colors
+  html += `<p style="${S.groupName}">Text Colors</p>`;
+  html += `<div style="display:flex;gap:8px;">`;
+  const textColors = [
+    { label: 'heading', hex: '#221924' },
+    { label: 'body', hex: '#514A53' },
+    { label: 'caption', hex: '#A09BA3' },
+    { label: 'muted', hex: '#C2BFC3' },
+  ];
+  for (const tc of textColors) {
+    html += `<div style="width:80px;text-align:center;">`;
+    html += `<div style="width:80px;height:56px;border-radius:8px;background:${tc.hex};"></div>`;
+    html += `<p style="${S.mono9}margin-top:4px;">${tc.label}</p>`;
+    html += `<p style="${S.mono10dark}margin-top:2px;">${tc.hex}</p>`;
+    html += `</div>`;
+  }
+  html += `</div></div>`;
 
   return html;
 }
 
 function generateTypographyHTML() {
   const textStyles = [
-    { name: 'Display / h1', family: 'Conforto', size: '48px', lineHeight: '56px', weight: '400', sample: 'Birne Studio' },
-    { name: 'Heading / h2', family: 'Conforto', size: '34px', lineHeight: '40px', weight: '400', sample: 'Heading Level 2' },
-    { name: 'Heading / h3', family: 'Conforto', size: '28px', lineHeight: '34px', weight: '400', sample: 'Heading Level 3' },
-    { name: 'Heading / h4', family: 'Conforto', size: '21px', lineHeight: '28px', weight: '500', sample: 'Heading Level 4' },
-    { name: 'Body / lg', family: 'General Sans', size: '17px', lineHeight: '25px', weight: '400', sample: 'Body text large. Dizajn, ktory funguje.' },
-    { name: 'Body / base', family: 'General Sans', size: '15px', lineHeight: '22px', weight: '400', sample: 'Body text base. Dizajn, ktory funguje.' },
-    { name: 'Body / sm', family: 'General Sans', size: '13px', lineHeight: '18px', weight: '400', sample: 'Body text small. Dizajn, ktory funguje.' },
-    { name: 'Label', family: 'General Sans', size: '13px', lineHeight: '18px', weight: '500', sample: 'LABEL TEXT' },
-    { name: 'Caption', family: 'General Sans', size: '11px', lineHeight: '16px', weight: '400', sample: 'Caption text, muted info' },
-    { name: 'Eyebrow', family: 'JetBrains Mono', size: '11px', lineHeight: '14px', weight: '500', sample: 'OVERLINE TEXT', transform: 'uppercase', spacing: '0.08em' },
+    { name: 'Display / h1', size: '48px', lh: '56px', weight: '400', sample: 'Birne Studio' },
+    { name: 'Heading / h2', size: '34px', lh: '40px', weight: '400', sample: 'Heading Level 2' },
+    { name: 'Heading / h3', size: '28px', lh: '34px', weight: '400', sample: 'Heading Level 3' },
+    { name: 'Heading / h4', size: '21px', lh: '28px', weight: '500', sample: 'Heading Level 4' },
+    { name: 'Body / lg', size: '17px', lh: '25px', weight: '400', sample: 'Body text large. Dizajn, ktory funguje.' },
+    { name: 'Body / base', size: '15px', lh: '22px', weight: '400', sample: 'Body text base. Dizajn, ktory funguje.' },
+    { name: 'Body / sm', size: '13px', lh: '18px', weight: '400', sample: 'Body text small. Dizajn, ktory funguje.' },
+    { name: 'Label', size: '13px', lh: '18px', weight: '500', sample: 'LABEL TEXT' },
+    { name: 'Caption', size: '11px', lh: '16px', weight: '400', sample: 'Caption text, muted info' },
+    { name: 'Eyebrow', size: '11px', lh: '14px', weight: '500', sample: 'OVERLINE TEXT', transform: 'uppercase', spacing: '0.08em' },
   ];
 
-  let html = `<style>${fontFaceCSS()}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'General Sans', sans-serif; padding: 48px; background: #FFFFFF; }
-    .section-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #A09BA3; margin-bottom: 24px; }
-    .type-row { display: flex; align-items: baseline; gap: 24px; padding: 16px 0; border-bottom: 1px solid #E1DFE2; }
-    .type-meta { width: 160px; flex-shrink: 0; }
-    .type-name { font-size: 13px; font-weight: 500; color: #221924; margin-bottom: 4px; }
-    .type-specs { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #A09BA3; }
-    .type-sample { flex: 1; color: #221924; }
-  </style>
-  <div>
-    <p class="section-title">Design Tokens / Typography</p>
-  `;
+  let html = `<div style="display:flex;flex-direction:column;gap:0px;padding:48px;width:900px;">`;
+  html += `<p style="${S.sectionTitle}margin-bottom:24px;">Design Tokens / Typography</p>`;
 
   for (const style of textStyles) {
-    const transform = style.transform ? `text-transform: ${style.transform};` : '';
-    const spacing = style.spacing ? `letter-spacing: ${style.spacing};` : '';
-    html += `
-    <div class="type-row">
-      <div class="type-meta">
-        <p class="type-name">${style.name}</p>
-        <p class="type-specs">${style.family.split(',')[0].replace(/'/g, '')} ${style.weight}<br>${style.size} / ${style.lineHeight}</p>
-      </div>
-      <div class="type-sample" style="font-family: ${style.family}; font-size: ${style.size}; line-height: ${style.lineHeight}; font-weight: ${style.weight}; ${transform} ${spacing}">
-        ${style.sample}
-      </div>
-    </div>`;
+    const transform = style.transform ? `text-transform:${style.transform};` : '';
+    const spacing = style.spacing ? `letter-spacing:${style.spacing};` : '';
+    html += `<div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #E1DFE2;">`;
+    html += `<div style="width:160px;flex-shrink:0;">`;
+    html += `<p style="${S.label13}margin-bottom:4px;">${style.name}</p>`;
+    html += `<p style="${S.mono10}">${style.weight} / ${style.size} / ${style.lh}</p>`;
+    html += `</div>`;
+    html += `<div style="flex:1;color:#221924;font-size:${style.size};line-height:${style.lh};font-weight:${style.weight};${transform}${spacing}">`;
+    html += style.sample;
+    html += `</div></div>`;
   }
 
   // Font size scale
-  html += `
-    <div style="margin-top: 32px;">
-      <p class="section-title">Font Size Scale</p>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">`;
-
+  html += `<div style="margin-top:32px;">`;
+  html += `<p style="${S.sectionTitle}margin-bottom:16px;">Font Size Scale</p>`;
+  html += `<div style="display:flex;gap:16px;flex-wrap:wrap;">`;
   for (const [key, size] of Object.entries(typography.fontSize)) {
-    html += `
-        <div style="text-align: center; min-width: 60px;">
-          <div style="font-family: 'General Sans', sans-serif; font-size: ${size}; line-height: 1.2; color: #221924;">Aa</div>
-          <p style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #A09BA3; margin-top: 4px;">${key} / ${size}</p>
-        </div>`;
+    html += `<div style="text-align:center;min-width:60px;">`;
+    html += `<div style="font-size:${size};line-height:1.2;color:#221924;">Aa</div>`;
+    html += `<p style="${S.mono9}margin-top:4px;">${key} / ${size}</p>`;
+    html += `</div>`;
   }
-
   html += `</div></div></div>`;
+
   return html;
 }
 
 function generateSpacingHTML() {
-  let html = `<style>${fontFaceCSS()}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'General Sans', sans-serif; padding: 48px; background: #FFFFFF; }
-    .section-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #A09BA3; margin-bottom: 24px; }
-    .subsection { font-family: 'Conforto', serif; font-size: 21px; color: #221924; margin-bottom: 16px; margin-top: 32px; }
-    .spacing-row { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-    .spacing-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #A09BA3; width: 80px; text-align: right; }
-    .spacing-bar { height: 24px; background: #DCB1E6; border-radius: 4px; }
-    .spacing-value { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #221924; }
-    .radius-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-    .radius-box { text-align: center; }
-    .radius-sample { width: 56px; height: 56px; background: #F8F7F8; border: 1px solid #E1DFE2; margin-bottom: 4px; }
-    .radius-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #A09BA3; }
-  </style>
-  <div>
-    <p class="section-title">Design Tokens / Spacing & Borders</p>
+  let html = `<div style="display:flex;flex-direction:column;gap:0px;padding:48px;width:600px;">`;
+  html += `<p style="${S.sectionTitle}margin-bottom:24px;">Design Tokens / Spacing &amp; Borders</p>`;
 
-    <p class="subsection">Spacing Scale</p>`;
-
+  html += `<p style="${S.groupName}margin-bottom:16px;">Spacing Scale</p>`;
   for (const [key, value] of Object.entries(spacing)) {
     const px = parseInt(value);
-    html += `
-    <div class="spacing-row">
-      <span class="spacing-label">${key}</span>
-      <div class="spacing-bar" style="width: ${px}px;"></div>
-      <span class="spacing-value">${value}</span>
-    </div>`;
+    html += `<div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">`;
+    html += `<span style="${S.mono10}width:40px;text-align:right;">${key}</span>`;
+    html += `<div style="height:24px;width:${px}px;background:#DCB1E6;border-radius:4px;"></div>`;
+    html += `<span style="${S.mono10dark}">${value}</span>`;
+    html += `</div>`;
   }
 
-  html += `<p class="subsection">Border Radius</p><div class="radius-row">`;
-
+  html += `<p style="${S.groupName}margin-top:32px;margin-bottom:16px;">Border Radius</p>`;
+  html += `<div style="display:flex;gap:12px;flex-wrap:wrap;">`;
   for (const [key, value] of Object.entries(borderRadius)) {
     const radius = value === '9999px' ? '28px' : value;
-    html += `
-      <div class="radius-box">
-        <div class="radius-sample" style="border-radius: ${radius};"></div>
-        <p class="radius-label">${key}<br>${value}</p>
-      </div>`;
+    html += `<div style="text-align:center;">`;
+    html += `<div style="width:56px;height:56px;background:#F8F7F8;border:1px solid #E1DFE2;border-radius:${radius};"></div>`;
+    html += `<p style="${S.mono9}margin-top:4px;">${key}</p>`;
+    html += `<p style="${S.mono9}">${value}</p>`;
+    html += `</div>`;
   }
-
   html += `</div></div>`;
+
   return html;
 }
 
@@ -313,61 +280,104 @@ async function sync() {
     const tools = await listTools();
     const toolNames = (tools?.tools || []).map(t => t.name);
     console.log(`     Available: ${toolNames.join(', ')}\n`);
-
-    // Check for required tools
-    const required = ['write_html', 'create_artboard'];
-    const missing = required.filter(t => !toolNames.includes(t));
-    if (missing.length > 0) {
-      console.warn(`  ⚠️  Missing tools: ${missing.join(', ')}`);
-      console.warn('     Some features may not work.\n');
-    }
   } catch (err) {
     console.warn(`  ⚠️  Could not list tools: ${err.message}`);
     console.warn('     Proceeding anyway...\n');
   }
 
-  // 3. Create/update artboards with token visualizations
+  // 3. Create artboards with token visualizations
   const artboards = [
-    { name: 'Colors', html: generateColorsHTML() },
-    { name: 'Typography', html: generateTypographyHTML() },
-    { name: 'Spacing & Borders', html: generateSpacingHTML() },
+    { name: 'Colors', html: generateColorsHTML(), width: 1200 },
+    { name: 'Typography', html: generateTypographyHTML(), width: 1000 },
+    { name: 'Spacing & Borders', html: generateSpacingHTML(), width: 700 },
   ];
 
+  // Get existing artboards
+  const basicInfo = await callTool('get_basic_info', {});
+  const basicData = JSON.parse(basicInfo?.content?.[0]?.text || '{}');
+  const existingArtboards = basicData.artboards || [];
+
+  const contentFrameIds = [];
+
   for (const artboard of artboards) {
+    const fullName = `Birne Tokens / ${artboard.name}`;
     console.log(`  📄 Syncing "${artboard.name}"...`);
     try {
-      // Try to create artboard first
-      try {
-        await callTool('create_artboard', {
-          name: `Birne Tokens / ${artboard.name}`,
-          width: 1200,
-          height: 800,
+      let existing = existingArtboards.find(a => a.name === fullName);
+      let targetId;
+
+      if (existing) {
+        targetId = existing.id;
+        // Delete existing children to reset content
+        const children = await callTool('get_children', { nodeId: targetId });
+        const childData = JSON.parse(children?.content?.[0]?.text || '{}');
+        const childIds = (childData.children || []).map(c => c.id);
+        if (childIds.length > 0) {
+          await callTool('delete_nodes', { nodeIds: childIds });
+        }
+        console.log(`     Found existing artboard (${targetId}), cleared content`);
+      } else {
+        const created = await callTool('create_artboard', {
+          name: fullName,
+          width: artboard.width,
+          height: 400,
         });
-      } catch {
-        // Artboard may already exist, continue with write_html
+        const createdData = JSON.parse(created?.content?.[0]?.text || '{}');
+        targetId = createdData.id;
+        console.log(`     Created new artboard (${targetId})`);
       }
 
-      // Write HTML content to the artboard
-      await callTool('write_html', {
-        selector: `[data-name="Birne Tokens / ${artboard.name}"]`,
+      // Write HTML content into the artboard
+      const written = await callTool('write_html', {
+        targetNodeId: targetId,
+        mode: 'insert-children',
         html: artboard.html,
       });
+      const writtenData = JSON.parse(written?.content?.[0]?.text || '{}');
+      const contentId = writtenData.createdNodes?.[0]?.id;
+      if (contentId) {
+        contentFrameIds.push(contentId);
+      }
       console.log(`     ✅ "${artboard.name}" synced`);
     } catch (err) {
       console.error(`     ❌ Failed to sync "${artboard.name}": ${err.message}`);
+    }
+  }
 
-      // Fallback: try writing to root
-      try {
-        console.log(`     🔄 Trying fallback write...`);
-        await callTool('write_html', {
-          html: `<div data-token-section="${artboard.name.toLowerCase()}">${artboard.html}</div>`,
-        });
-        console.log(`     ✅ "${artboard.name}" synced (fallback)`);
-      } catch (fallbackErr) {
-        console.error(`     ❌ Fallback also failed: ${fallbackErr.message}`);
+  // Resize content frames and artboards to fit content
+  if (contentFrameIds.length > 0) {
+    console.log('\n  📐 Adjusting sizes...');
+    // Position content frames at top-left and fill width
+    await callTool('update_styles', {
+      updates: [{ nodeIds: contentFrameIds, styles: { top: '0px', left: '0px', width: 'fill', height: 'fit-content' } }],
+    });
+    // Get updated artboard info to read actual content heights
+    const updatedInfo = await callTool('get_basic_info', {});
+    const updatedData = JSON.parse(updatedInfo?.content?.[0]?.text || '{}');
+    for (const ab of updatedData.artboards || []) {
+      // Get the content frame inside each artboard
+      const children = await callTool('get_children', { nodeId: ab.id });
+      const childData = JSON.parse(children?.content?.[0]?.text || '{}');
+      if (childData.children?.length > 0) {
+        const child = childData.children[0];
+        const nodeInfo = await callTool('get_node_info', { nodeId: child.id });
+        const nodeData = JSON.parse(nodeInfo?.content?.[0]?.text || '{}');
+        const contentHeight = nodeData.height || nodeData.h;
+        if (contentHeight) {
+          // Resize artboard to match content height + small margin
+          await callTool('update_styles', {
+            updates: [{ nodeIds: [ab.id], styles: { height: `${Math.ceil(contentHeight) + 32}px` } }],
+          });
+          console.log(`     ${ab.name}: ${Math.ceil(contentHeight) + 32}px`);
+        }
       }
     }
   }
+
+  // Finish working
+  try {
+    await callTool('finish_working_on_nodes', {});
+  } catch {}
 
   console.log('\n✅ Sync complete!');
   console.log('   Open Paper Desktop to see the updated token reference.\n');
